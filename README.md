@@ -11,3 +11,6 @@ This can be done with the following command:
 ```bash
 sudo chmod a+rw /dev/ttyUSB0
 ```
+
+# Useful links
+ - [[mcauser - Github] Waveshare ePaper display drivers for Micropython](https://github.com/mcauser/micropython-waveshare-epaper)
