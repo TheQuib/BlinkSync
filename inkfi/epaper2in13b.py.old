@@ -47,17 +47,21 @@ class EPD:
             pass
 
     def set_font(self, font, size):
-        pass  # Placeholder; no font support in this implementation
+        self.framebuf = framebuf.FrameBuffer(self.buffer, EPD_WIDTH, EPD_HEIGHT, framebuf.MONO_HLSB)
+        self.framebuf.font = font
+        self.framebuf.textsize = size
 
     def set_text_color(self, color):
         self.framebuf.fill(color)
 
-    def set_text_position(self, x, y):
-        self.text_x = x
-        self.text_y = y
+    def set_background_color(self, color):
+        self.framebuf.fill_rect(0, 0, EPD_WIDTH, EPD_HEIGHT, color)
 
-    def write_text(self, text, x, y):
-        self.framebuf.text(text, x, y)
+    def set_text_position(self, x, y):
+        self.framebuf.textpos(x, y)
+
+    def write_text(self, text):
+        self.framebuf.text(text)
 
     def display(self):
         self._command(0x24)  # Write RAM

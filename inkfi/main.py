@@ -1,38 +1,30 @@
 import machine
-from machine import Pin, SPI
 import epaper2in13b
+import framebuf
 
-# Pin assignments for the ePaper display
-EPD_PIN_RST = 17
-EPD_PIN_DC = 16
-EPD_PIN_CS = 5
-EPD_PIN_BUSY = 4
+# Pin definitions
+CS_PIN = machine.Pin(15, machine.Pin.OUT)
+DC_PIN = machine.Pin(27, machine.Pin.OUT)
+RST_PIN = machine.Pin(26, machine.Pin.OUT)
+BUSY_PIN = machine.Pin(25, machine.Pin.IN)
 
-# SPI bus configuration
-spi = SPI(2, baudrate=2000000, polarity=0, phase=0)
-spi.init()
+# SPI initialization
+spi = machine.SPI(1, baudrate=115200, polarity=0, phase=0)
 
-# Create an instance of the ePaper display
-epd = epaper2in13b.EPD(spi, EPD_PIN_CS, EPD_PIN_DC, EPD_PIN_RST, EPD_PIN_BUSY)
+# Initialize ePaper display
+epaper = epaper2in13b.EPD(spi, CS_PIN, DC_PIN, RST_PIN, BUSY_PIN)
+epaper.init()
 
-# Initialize the ePaper display
-epd.init()
+# Set font and text color
+size = 16
+epaper.set_font(framebuf.MONO_HMSB, size)
+epaper.set_text_color(epaper2in13b.BLACK)
 
-# Clear the display
-epd.clear()
+# Set text position and write text
+x = 10
+y = 10
+epaper.set_text_position(x, y)
+epaper.write_text("Hello, World!", x, y)
 
-# Set up a sample text to be displayed
-text = "Hello, world!"
-
-# Display the text on the ePaper display
-epd.set_font(epaper2in13b.FONT_DEFAULT, size=16)
-epd.set_text_color(epaper2in13b.BLACK)
-epd.set_background_color(epaper2in13b.WHITE)
-epd.set_text_position(10, 10)
-epd.write_text(text)
-
-# Update the display
-epd.display()
-
-# Put the ESP32 into deep sleep mode to conserve power (optional)
-machine.deepsleep()
+# Display the content on the ePaper display
+epaper.display()

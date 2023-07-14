@@ -1,7 +1,7 @@
 import network
 
-wifi_ssid = "YOUR_WIFI_SSID"
-wifi_password = "YOUR_WIFI_PASSWORD"
+wifi_ssid = "No Internet"
+wifi_password = "Jersey Shore"
 
 sta_if = network.WLAN(network.STA_IF)
 sta_if.active(True)

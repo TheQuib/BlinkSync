@@ -1,0 +1,41 @@
+import machine
+from machine import Pin, SPI
+import framebuf
+import epaper2in13b
+
+# Pin assignments for the ePaper display
+CS_PIN = machine.Pin(15, machine.Pin.OUT)
+DC_PIN = machine.Pin(27, machine.Pin.OUT)
+RST_PIN = machine.Pin(26, machine.Pin.OUT)
+BUSY_PIN = machine.Pin(25, machine.Pin.IN)
+
+# SPI bus configuration
+spi = SPI(2, baudrate=2000000, polarity=0, phase=0)
+spi.init()
+
+# Create an instance of the ePaper display
+epd = epaper2in13b.EPD(spi, CS_PIN, DC_PIN, RST_PIN, BUSY_PIN)
+
+# Initialize the ePaper display
+epd.init()
+
+# Clear the display
+epd.clear()
+
+# Set up a sample text to be displayed
+text = "Hello, world!"
+
+# Display the text on the ePaper display
+epd.set_font(font=framebuf.MONO_HMSB, size=16)
+epd.set_text_color(epaper2in13b.BLACK)
+
+epd.set_background_color(epaper2in13b.WHITE)
+
+epd.set_text_position(10, 10)
+epd.write_text(text)
+
+# Update the display
+epd.display()
+
+# Put the ESP32 into deep sleep mode to conserve power (optional)
+machine.deepsleep()
