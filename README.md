@@ -12,5 +12,11 @@ This can be done with the following command:
 sudo chmod a+rw /dev/ttyUSB0
 ```
 
+If you want this to be persistent, run the following commands:
+```bash
+sudo usermod -aG dialout $USER
+newgrp dialout
+```
+
 # Useful links
  - [[mcauser - Github] Waveshare ePaper display drivers for Micropython](https://github.com/mcauser/micropython-waveshare-epaper)
