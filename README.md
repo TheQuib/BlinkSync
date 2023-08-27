@@ -1,5 +1,6 @@
-# inkfi
-Inkfi - E-Paper driven WiFi QR code display
+# BlinkSync
+BlinkSync - E-Paper driven WiFi QR code display
+Where did the name come from?
 
 # Prerequisites
  - ESP32 OTA
