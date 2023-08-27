@@ -1,3 +1,5 @@
+![BlinkSync](/BlinkSync.png)
+
 # BlinkSync
 BlinkSync - E-Paper driven WiFi QR code display
 Where did the name come from?
